@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erick's Restaurant</title>
+<link rel="icon" href="images/app_icon.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff6b35">
+<style>
+/* ===== BODY & APP CONTAINER ===== */
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background: url('https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  transition: background 0.5s,color 0.5s;
+}
+body.dark-mode { background:#121212; color:#eee; }
+.app { max-width:420px; margin:auto; background:rgba(255,255,255,0.9); min-height:100vh; border-radius:20px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,0.3); padding-bottom:20px; transition:background 0.5s,color 0.5s; }
+
+/* ===== BRAND ANIMATION ===== */
+.brand-name { font-size:28px; text-align:center; animation:bounce 2s infinite; margin-top:10px; }
+@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.tagline{text-align:center;font-size:16px;margin:5px 0;}
+.dark-mode-btn{display:block;margin:10px auto;padding:8px 15px;border:none;border-radius:10px;background:#ff6b35;color:white;cursor:pointer;transition:transform .2s,background .3s;}
+.dark-mode-btn:hover{background:#ff7f50;transform:scale(1.05);}
+
+/* ===== NAVIGATION ===== */
+.nav-buttons {display:flex;justify-content:space-around;padding:10px;}
+.nav-btn {background:#ffa06c;padding:10px 20px;color:white;text-decoration:none;border-radius:8px;transition:transform .3s,background .3s;}
+.nav-btn:hover {transform:scale(1.1);background:#ffb37d;}
+
+/* ===== CAROUSEL ===== */
+.carousel {position:relative;width:100%;height:200px;overflow:hidden;border-radius:15px;margin-top:10px;}
+.carousel-img {width:100%;height:100%;object-fit:cover;position:absolute;opacity:0;transition:opacity 1s ease;}
+.carousel-img.active {opacity:1;}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.8);border:none;border-radius:50%;font-size:24px;padding:8px;cursor:pointer;}
+#prev{left:8px;}#next{right:8px;}
+
+/* ===== MENU ITEMS ===== */
+.menu{padding:15px;}
+.item {background:rgba(255,255,255,0.9);padding:15px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 5px rgba(0,0,0,0.1);text-align:center;transition:transform .3s,box-shadow .3s;}
+.item:hover {transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+.food-img{width:100%;border-radius:10px;transition:transform .3s;}
+.food-img:hover{transform:scale(1.05);}
+
+/* ===== BUTTONS ===== */
+button{margin-top:10px;width:100%;padding:12px;border:none;border-radius:8px;background:#ff6b35;color:white;font-size:15px;cursor:pointer;transition:transform .2s,background .3s;}
+button:hover{transform:scale(1.05);background:#ff7f50;}
+
+/* ===== CART ITEMS ===== */
+.cart-item{display:flex;align-items:center;margin-bottom:10px;background:rgba(255,255,255,0.9);padding:8px;border-radius:10px;transition:transform .3s;}
+.cart-item:hover {transform:scale(1.03);}
+.cart-img{width:60px;height:60px;object-fit:cover;border-radius:8px;margin-right:10px;}
+
+/* ===== PAGE FADE ===== */
+.page-fade {animation:fadeIn .8s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+</style>
+</head>
+<body>
+
+<div class="app page-fade">
+
+  <!-- HEADER & BRAND -->
+  <h1 class="brand-name">Erick's Restaurant</h1>
+  <p class="tagline">Fresh • Local • Tasty 🇰🇪</p>
+  <button class="dark-mode-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+  <!-- NAVIGATION -->
+  <div class="nav-buttons">
+    <a href="#menu" class="nav-btn">Menu</a>
+    <a href="#cart" class="nav-btn">Cart 🛒</a>
+    <a href="#contact" class="nav-btn">Contact</a>
+  </div>
+
+  <!-- CAROUSEL -->
+  <div class="carousel">
+    <img src="https://pixabay.com/get/57e9d5444851b108f5d084609629307e1c3bdde74e507749772d7ad0934ec05e_640.jpg" class="carousel-img active">
+    <img src="https://pixabay.com/get/5fe8d04642521c3e494f45d04f4c497e1c3bdde74e5077497a2d7ed6954dc05e_640.jpg" class="carousel-img">
+    <button class="carousel-arrow" id="prev">&#10094;</button>
+    <button class="carousel-arrow" id="next">&#10095;</button>
+  </div>
+
+  <!-- MENU SECTION -->
+  <div id="menu" class="menu page-fade">
+    <div class="item">
+      <img src="https://pixabay.com/get/57e3d44a4e56af14f6d1867dda5d4f95113dbce4554c704f742c72d6924cc05e_640.jpg" class="food-img">
+      <h3>Ugali + Sukuma</h3><p>KES 250</p>
+      <button onclick="orderItem('Ugali + Sukuma',250,'https://pixabay.com/get/57e3d44a4e56af14f6d1867dda5d4f95113dbce4554c704f742c72d6924cc05e_640.jpg')">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://pixabay.com/get/5fe8d1444b56af14f6d1867dda5d4f95113dbce4554c704f742c72d6924cc05e_640.jpg" class="food-img">
+      <h3>Nyama Choma</h3><p>KES 500</p>
+      <button onclick="orderItem('Nyama Choma',500,'https://pixabay.com/get/5fe8d1444b56af14f6d1867dda5d4f95113dbce4554c704f742c72d6924cc05e_640.jpg')">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://pixabay.com/get/53e6dc4a4d51aa14f6da8c7dda6d49214e0d7ef61e4b0245d527c1e49245c15a_640.jpg" class="food-img">
+      <h3>Grilled Samaki</h3><p>KES 450</p>
+      <button onclick="orderItem('Grilled Samaki',450,'https://pixabay.com/get/53e6dc4a4d51aa14f6da8c7dda6d49214e0d7ef61e4b0245d527c1e49245c15a_640.jpg')">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- CART SECTION -->
+  <div id="cart" class="menu page-fade">
+    <h2>Your Cart 🛒</h2>
+    <div id="cartItems"><p>Your cart is empty</p></div>
+    <div id="cartTotal" style="display:none;margin-top:15px;">
+      <p>Total: KES <span id="totalAmount">0</span></p>
+      <button onclick="checkoutCart()">Send Order via WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <div id="contact" class="menu page-fade">
+    <h2>Contact Us</h2>
+    <p>WhatsApp: <strong>0785321343</strong></p>
+    <button onclick="openWhatsApp('Hello! I want to place an order')">Message Us</button>
+  </div>
+
+</div>
+
+<script>
+// CART & WHATSAPP
+const myNumber = "254785321343";
+let cart = [];
+function orderItem(food, price, img){cart.push({food,price,img});updateCart();}
+function updateCart(){
+  const cartDiv=document.getElementById("cartItems");
+  const totalDiv=document.getElementById("cartTotal");
+  if(cart.length===0){cartDiv.innerHTML="<p>Your cart is empty</p>";totalDiv.style.display="none";return;}
+  let html="",total=0;
+  cart.forEach(i=>{html+=`<div class="cart-item"><img src="${i.img}" class="cart-img"><div><p>${i.food}</p><p>KES ${i.price}</p></div></div>`;total+=i.price;});
+  cartDiv.innerHTML=html;
+  document.getElementById("totalAmount").innerText=total;
+  totalDiv.style.display="block";
+}
+function checkoutCart(){
+  if(cart.length===0){alert("Cart is empty!");return;}
+  let msg="Hi! I'd like to order:\n";
+  cart.forEach(i=> msg+=`- ${i.food}: KES ${i.price}\n`);
+  msg+=`Total: KES ${document.getElementById("totalAmount").innerText}`;
+  window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`,"_blank");
+}
+function openWhatsApp(m){window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(m)}`,"_blank");}
+
+// DARK MODE
+function toggleDarkMode(){document.body.classList.toggle("dark-mode");}
+
+// CAROUSEL WITH ARROWS
+let idx=0,slides=document.querySelectorAll(".carousel-img");
+document.getElementById("next").addEventListener("click",()=>{slides[idx].classList.remove("active");idx=(idx+1)%slides.length;slides[idx].classList.add("active");});
+document.getElementById("prev").addEventListener("click",()=>{slides[idx].classList.remove("active");idx=(idx-1+slides.length)%slides.length;slides[idx].classList.add("active");});
+
+// REGISTER SERVICE WORKER FOR PWA
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('service-worker.js').then(reg=>console.log('ServiceWorker registered',reg)).catch(err=>console.log('ServiceWorker failed',err));});}
+</script>
+
+</body>
+</html>

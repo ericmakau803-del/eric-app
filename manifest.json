@@ -1,0 +1,21 @@
+{
+  "name": "Erick's Restaurant",
+  "short_name": "ErickRest",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ff6b35",
+  "theme_color": "#ff6b35",
+  "description": "Order delicious Kenyan food from Erick's Restaurant",
+  "icons": [
+    {
+      "src": "images/app_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/app_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
